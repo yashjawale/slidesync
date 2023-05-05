@@ -1,7 +1,147 @@
+:root {
+  --foreground: #000000;
+  --background: #ffffff;
+}
+
+@font-face {
+  font-family: "Sora";
+  src: url("./assets/Sora-VariableFont_wght.ttf");
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground: #e6e6e7;
+    --background: #232323;
+  }
+  .message .close img {
+    filter: invert(1);
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  transition: all 0.1s ease;
+  color: var(--foreground);
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;
+  padding: 20px;
+  background-color: var(--background);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+.header-container img {
+  width: 50px;
+  margin-right: 10px;
+}
+.header-container h1 {
+  font-size: 24px;
+}
+
+.main-container {
+  display: flex;
+  height: calc(100vh - 90px);
+  padding-top: 10px;
+}
+
+.qr-container {
+  /* background: red; */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.qr-image-container {
+  background-color: #ffffff;
+  padding: 12px;
+  border-radius: 4px;
+}
+
+.message-container {
+  padding: 20px;
+  width: 300px;
+  overflow-y: scroll;
+  border-left: 1px solid #c7c7c7;
+}
+
+.message {
+  border: 1px solid var(--foreground);
+  margin-bottom: 18px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.message h3 {
+  display: block;
+  font-size: 18px;
+  font-weight: normal;
+  padding-bottom: 0.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.message p {
+  font-size: 0.875rem;
+  color: #53ce51;
+  font-weight: bold;
+}
+
+.message button {
+  padding: 6px 12px;
+  font-size: 14px;
+  margin-right: 12px;
+  border-radius: 10px;
+  border: none;
+  color: var(--background);
+  margin-top: 0.4rem;
+}
+
+.message button:hover {
+  /* backdrop-filter: brightness(0.5); */
+  filter: brightness(0.8);
+}
+
+.message .close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: var(--background);
+  padding: 0;
+  margin: 0;
+  border-radius: 5px;
+  padding: 4px;
+  padding-bottom: 2px;
+}
+
+.close img {
+  width: 14px;
+}
+
+.accept {
+  background-color: #62b960;
+}
+
+.ignore {
+  background-color: #d75656;
+}
+
+#code {
+  font-family: monospace;
+  font-size: 1.5rem;
+  margin-top: 24px;
+  padding: 12px;
+  border: 1px solid var(--foreground);
+  border-radius: 10px;
 }

@@ -26,6 +26,17 @@ module.exports = [
       },
     },
   },
+  {
+    test: /\.(jpe?g|gif|png|svg)$/i,
+    use: [
+      {
+        loader: "url-loader",
+        options: {
+          limit: 10000,
+        },
+      },
+    ],
+  },
   // Put your webpack loader rules in this array.  This is where you would put
   // your ts-loader configuration for instance:
   /**

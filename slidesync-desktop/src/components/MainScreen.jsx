@@ -1,0 +1,128 @@
+import React, { useState, useEffect } from "react";
+import QRCode from "react-qr-code";
+import { io } from "socket.io-client";
+
+import Message from "./Message.jsx";
+import QRDisplay from "./QRDisplay.jsx";
+
+const URL = "http://localhost";
+const PORT = "4000";
+
+const socket = io(`${URL}:${PORT}`, { autoConnect: false });
+
+const MainScreen = () => {
+  const [code, setCode] = useState(""); // Stores socket ID from server
+  // const [isOnline, setIsOnline] = useState(window.navigator.onLine);
+  const [isOnline, setIsOnline] = useState(true); // Used for checking whether user is online
+
+  const setOnline = () => {
+    console.log("We are online!");
+    // setIsOnline(true);
+  };
+  const setOffline = () => {
+    console.log("We are offline!");
+    // setIsOnline(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("offline", setOffline);
+    window.addEventListener("online", setOnline);
+    socket.connect();
+    socket.on("connect", () => {
+      setCode(socket.id);
+    });
+    socket.on("disconnect", () => {
+      setCode("");
+    });
+    socket.on("add-device", (device) => {
+      setDevices((currentDevices) => [
+        ...currentDevices,
+        { name: device.name, id: device.id, connected: false },
+      ]);
+    });
+
+    return () => {
+      window.removeEventListener("offline", setOffline);
+      window.removeEventListener("online", setOnline);
+    };
+  }, []);
+
+  const [devices, setDevices] = useState([
+    {
+      name: "Amused Marsupius",
+      id: "fochvjodfjbfvc",
+      connected: true,
+    },
+    {
+      name: "Enormous Armadillo",
+      id: "fdsfojchovjd",
+      connected: false,
+    },
+    {
+      name: "Payable Woodpecker",
+      id: "cxovjojerfhjsdf",
+      connected: false,
+    },
+  ]);
+
+  // const [devices, setDevices] = useState([]);
+
+  const handleButton = (button, id) => {
+    console.log(button, id);
+    if (button === "cross") {
+      setDevices((currentDevices) => {
+        return currentDevices.filter((device) => {
+          return id !== device.id;
+        });
+      });
+      // console.log(
+      //   devices.filter((device) => {
+      //     return id !== device.id;
+      //   })
+      // );
+    }
+  };
+
+  return (
+    <div className="main-container">
+      <div className="qr-container">
+        {isOnline ? <QRDisplay value={code} /> : <h2>No Internet</h2>}
+      </div>
+      <div className="message-container">
+        {/* { (devices.length === 0) ?
+        return (
+        devices.map((device) => {
+          return (
+            <Message
+              name={device.name}
+              connected={device.connected}
+              key={device.id}
+              id={device.id}
+              handleButton={handleButton}
+            />
+          );
+        })) : <h3>No devices connected</h3>} */}
+
+        {devices.length !== 0 ? (
+          <>
+            {devices.map((device) => (
+              <Message
+                name={device.name}
+                connected={device.connected}
+                id={device.id}
+                key={device.id}
+                handleButton={handleButton}
+              />
+            ))}
+          </>
+        ) : (
+          <h3>No devices connected</h3>
+        )}
+
+        <button onClick={() => setCode("XYZ")}>CHANGE</button>
+      </div>
+    </div>
+  );
+};
+
+export default MainScreen;
