@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import logo from '../assets/logo.png'
+// import logo from '../assets/logo.svg'
 import logout from '../assets/logout.png'
+import logo from '../assets/logo.svg'
 import { AppContext } from './Home'
 import { Context } from '../App'
 export default function Nav() {
