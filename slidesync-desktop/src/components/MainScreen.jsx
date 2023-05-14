@@ -17,28 +17,44 @@ const MainScreen = () => {
 
   const setOnline = () => {
     console.log("We are online!");
-    // setIsOnline(true);
+    setIsOnline(true);
   };
   const setOffline = () => {
     console.log("We are offline!");
-    // setIsOnline(false);
+    setIsOnline(false);
   };
 
   useEffect(() => {
     window.addEventListener("offline", setOffline);
     window.addEventListener("online", setOnline);
+
+    // Connecting to server
     socket.connect();
     socket.on("connect", () => {
       setCode(socket.id);
     });
+
+    // Reset ID on server disconnect
     socket.on("disconnect", () => {
       setCode("");
     });
+
+    // Device notifications
     socket.on("add-device", (device) => {
       setDevices((currentDevices) => [
         ...currentDevices,
         { name: device.name, id: device.id, connected: false },
       ]);
+    });
+
+    // Getting functions from mobile device
+    socket.on("function-request", (controlType) => {
+      console.log(controlType);
+    });
+
+    // Removing disconnected mobile device from list
+    socket.on("device-disconnect", (id) => {
+      handleButton("cross", id);
     });
 
     return () => {
@@ -47,25 +63,25 @@ const MainScreen = () => {
     };
   }, []);
 
-  const [devices, setDevices] = useState([
-    {
-      name: "Amused Marsupius",
-      id: "fochvjodfjbfvc",
-      connected: true,
-    },
-    {
-      name: "Enormous Armadillo",
-      id: "fdsfojchovjd",
-      connected: false,
-    },
-    {
-      name: "Payable Woodpecker",
-      id: "cxovjojerfhjsdf",
-      connected: false,
-    },
-  ]);
+  // const [devices, setDevices] = useState([
+  //   {
+  //     name: "Amused Marsupius",
+  //     id: "fochvjodfjbfvc",
+  //     connected: true,
+  //   },
+  //   {
+  //     name: "Enormous Armadillo",
+  //     id: "fdsfojchovjd",
+  //     connected: false,
+  //   },
+  //   {
+  //     name: "Payable Woodpecker",
+  //     id: "cxovjojerfhjsdf",
+  //     connected: false,
+  //   },
+  // ]);
 
-  // const [devices, setDevices] = useState([]);
+  const [devices, setDevices] = useState([]);
 
   const handleButton = (button, id) => {
     console.log(button, id);
@@ -75,11 +91,23 @@ const MainScreen = () => {
           return id !== device.id;
         });
       });
-      // console.log(
-      //   devices.filter((device) => {
-      //     return id !== device.id;
-      //   })
-      // );
+    }
+    if (button === "accept") {
+      setDevices((currentDevices) => {
+        return currentDevices.map((device) => {
+          if (device.id === id) {
+            device.connected = true;
+          }
+          return device;
+        });
+      });
+    }
+    if (button === "ignore") {
+      setDevices((currentDevices) => {
+        return currentDevices.filter((device) => {
+          return id !== device.id;
+        });
+      });
     }
   };
 
@@ -119,7 +147,7 @@ const MainScreen = () => {
           <h3>No devices connected</h3>
         )}
 
-        <button onClick={() => setCode("XYZ")}>CHANGE</button>
+        {/* <button onClick={() => setCode("XYZ")}>CHANGE</button> */}
       </div>
     </div>
   );

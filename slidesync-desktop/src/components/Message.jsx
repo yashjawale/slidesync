@@ -13,8 +13,12 @@ const Message = ({ name, connected, id, handleButton }) => {
         <p>Connected</p>
       ) : (
         <div>
-          <button className="accept">Accept</button>
-          <button className="ignore">Ignore</button>
+          <button className="accept" onClick={() => handleButton("accept", id)}>
+            Accept
+          </button>
+          <button className="ignore" onClick={() => handleButton("ignore", id)}>
+            Ignore
+          </button>
         </div>
       )}
       {/* <img src={cross} /> */}

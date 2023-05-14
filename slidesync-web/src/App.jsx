@@ -1,8 +1,11 @@
 import React, { createContext, useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { io } from "socket.io-client";
 import "./App.css";
-import NoSleep from 'nosleep.js';
+
+import NoSleep from "nosleep.js";
 import Home from "./Components/Home";
+import ScanScreen from "./Components/ScanScreen";
 import Welcome from "./Components/Welcome";
 import CodeEntry from "./Components/CodeEntry";
 import Error from "./Components/Error";
@@ -11,52 +14,53 @@ export const Context = createContext();
 const nosleep = new NoSleep();
 const getDark = () => {
   return JSON.parse(localStorage.getItem("dark")) || false;
-}
+};
 
-// localStorage.removeItem('dark')
+// Configuring socket
+const URL = "http://localhost";
+const PORT = "4000";
+const socket = io(`${URL}:${PORT}`, {
+  autoConnect: false,
+});
+
+// States for app preferences & socket ID
 function App() {
-
-  // const [dark, setDark] = useState(getDark())
-  // const [vibrate, setVibrate] = useState(false)
-  // const [sound, setSound] = useState(true)
-  // const [sleep, setSleep] = useState(true)
-
   const [state, setState] = useState({
-    // dark: getDark() ,
     dark: true,
     vibrate: false,
     sound: false,
     sleep: false,
-  })
+    code: "",
+  });
 
   useEffect(() => {
-    // localStorage.setItem("dark", state.dark)
-    document.body.classList.toggle('dark')
-  }, [state.dark])
+    document.body.classList.toggle("dark");
+  }, [state.dark]);
 
   useEffect(() => {
-    // state.sleep && nosleep.enable();
-    state.sleep ?
-    document.addEventListener('click', function enableNoSleep() {
-      document.removeEventListener('click', enableNoSleep, false);
-      nosleep.enable();
-    }, false) : nosleep.disable();
-
-  }, [state.sleep])
+    state.sleep
+      ? document.addEventListener(
+          "click",
+          function enableNoSleep() {
+            document.removeEventListener("click", enableNoSleep, false);
+            nosleep.enable();
+          },
+          false
+        )
+      : nosleep.disable();
+  }, [state.sleep]);
   return (
     <>
       <BrowserRouter>
-
         <Context.Provider value={{ state, setState }}>
-
           <Routes>
             <Route path="/" element={<Welcome />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/home" element={<Home socket={socket} />} />
+            <Route path="/scan" element={<ScanScreen />} />
             <Route path="/codeentry" element={<CodeEntry />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </Context.Provider>
-
       </BrowserRouter>
     </>
   );

@@ -1,34 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/x-icon" href="./logo.png" />
-  <!-- <link rel = "icon" href = 
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="./logo.png" />
+    <!-- <link rel = "icon" href = 
   "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200X200.png" 
           type = "image/x-icon"> -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SlideSync</title>
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Arvo&family=DM+Sans&family=Fira+Code&family=Marvel:wght@400;700&family=Montserrat&family=Open+Sans&family=Plus+Jakarta+Sans&family=Poppins&family=Sora&family=Ubuntu&display=swap');
-  </style>
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SlideSync</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&family=Sora:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
-  <div id="root" style="height: 90vh; max-height: 800px;"></div>
-  <script type="module" src="/src/main.jsx"></script>
-</body>
+  <body>
+    <div id="root" style="height: 90vh; max-height: 800px"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 
-<script>
-  function preventBack() { window.history.forward(); }
-  setTimeout("preventBack()", 0);
-  window.onunload = function () { null };  
-</script>
-
+  <script>
+    function preventBack() {
+      window.history.forward();
+    }
+    setTimeout("preventBack()", 0);
+    window.onunload = function () {
+      null;
+    };
+  </script>
 </html>
