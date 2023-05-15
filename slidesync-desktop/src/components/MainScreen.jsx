@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import QRCode from "react-qr-code";
 import { io } from "socket.io-client";
 
@@ -9,6 +9,8 @@ const URL = "http://localhost";
 const PORT = "4000";
 
 const socket = io(`${URL}:${PORT}`, { autoConnect: false });
+
+const controlTypes = ["next", "previous"];
 
 const MainScreen = () => {
   const [code, setCode] = useState(""); // Stores socket ID from server
@@ -48,8 +50,25 @@ const MainScreen = () => {
     });
 
     // Getting functions from mobile device
-    socket.on("function-request", (controlType) => {
+    socket.on("function-request", (controlType, origin) => {
       console.log(controlType);
+      if (controlTypes.includes(controlType)) {
+        // Valid control option
+        console.log(deviceRef.current);
+        if (
+          deviceRef.current.find(
+            ({ id, connected }) => id === origin && connected === true
+          ) !== undefined
+        ) {
+          // Valid device
+          console.log("FOUND");
+          socket.emit("valid-fn", origin);
+        } else {
+          socket.emit("invalid-fn", origin);
+        }
+      } else {
+        socket.emit("invalid-fn", origin);
+      }
     });
 
     // Removing disconnected mobile device from list
@@ -82,6 +101,8 @@ const MainScreen = () => {
   // ]);
 
   const [devices, setDevices] = useState([]);
+  const deviceRef = useRef();
+  deviceRef.current = devices;
 
   const handleButton = (button, id) => {
     console.log(button, id);

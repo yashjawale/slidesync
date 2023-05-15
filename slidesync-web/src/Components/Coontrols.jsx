@@ -1,9 +1,15 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { Context } from "../App";
 import { AppContext } from "./Home";
 import notify from "../assets/notify1sec.mp3";
 
-export default function Coontrols({ handleControl }) {
+const Coontrols = forwardRef((props, ref) => {
   const [range, setRange] = useState(0);
   let { dark, state } = useContext(Context);
   let { showexit } = useContext(AppContext);
@@ -18,16 +24,28 @@ export default function Coontrols({ handleControl }) {
     }, 1000);
   };
 
+  useImperativeHandle(ref, () => ({
+    successMethod() {
+      console.log("CALLED SUCCESS");
+      blinkLight("success");
+    },
+    errorMethod() {
+      console.log("CALLED ERROR");
+      blinkLight("error");
+    },
+  }));
+
   const trigger = (direction) => {
-    handleControl(direction).then(
-      (res) => {
-        blinkLight("success");
-      },
-      (err) => {
-        console.log(err);
-        blinkLight("error");
-      }
-    );
+    // handleControl(direction).then(
+    //   (res) => {
+    //     blinkLight("success");
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //     blinkLight("error");
+    //   }
+    // );
+    props.handleControl(direction, blinkLight);
   };
 
   const handleRange = (e) => {
@@ -147,4 +165,6 @@ export default function Coontrols({ handleControl }) {
       </div>
     </>
   );
-}
+});
+
+export default Coontrols;

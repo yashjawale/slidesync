@@ -38,21 +38,45 @@ io.on("connection", (socket) => {
   });
 
   // Trigger for app functions
-  socket.on("trigger", (controlType, code, cb) => {
-    console.log("RECEIVED TRIGGER: ", `${controlType} for ${code}`);
+  // socket.on("trigger", (controlType, code, cb) => {
+  //   console.log("RECEIVED TRIGGER: ", `${controlType} for ${code}`);
+  //   if (controlTypes.includes(controlType)) {
+  //     socket.to(code).emit("function-request", controlType, (res) => {
+  //       console.log("RESP: ", res);
+  //       if (res === "Accepted") {
+  //         cb("Accept");
+  //       } else {
+  //         cb("Rejected");
+  //       }
+  //     });
+  //   } else {
+  //     console.log("Invalid function specified");
+  //     cb("Invalid function");
+  //   }
+  // });
+
+  socket.on("trigger", (controlType, code, origin) => {
+    console.log(
+      "RECEIVED TRIGGER: ",
+      `${controlType} for ${code} from ${origin}`
+    );
+    // socket.emit("invalid");
     if (controlTypes.includes(controlType)) {
-      socket.to(code).emit("function-request", controlType, (res) => {
-        console.log("RESP: ", res);
-        if (res === "Accepted") {
-          cb("Accept");
-        } else {
-          cb("Rejected");
-        }
-      });
+      socket.to(code).emit("function-request", controlType, origin);
     } else {
       console.log("Invalid function specified");
-      cb("Invalid function");
+      socket.to(origin).emit("invalid");
     }
+  });
+
+  socket.on("valid-fn", (origin) => {
+    io.to(origin).emit("valid");
+    console.log("SENT valid to ", origin);
+  });
+
+  socket.on("invalid-fn", (origin) => {
+    io.to(origin).emit("invalid");
+    console.log("SENT iNvAliD to ", origin);
   });
 
   // Emitting device-disconnect event to each device in room

@@ -1,4 +1,10 @@
-import React, { useContext, useState, createContext, useEffect } from "react";
+import React, {
+  useContext,
+  useState,
+  createContext,
+  useEffect,
+  useRef,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import Time from "./Time";
 import Nav from "./Nav";
@@ -16,32 +22,45 @@ export default function Home({ socket }) {
   const [showexit, setShowExit] = useState(false);
   const [message, setMessage] = useState("");
 
+  const myRef = useRef();
+
   const controlTypes = ["next", "previous"];
 
-  const handleControl = (controlType) => {
+  // const handleControl = (controlType) => {
+  //   console.log("HANDLECTRL: ", controlType);
+  //   socket.emit(controlType);
+  //   return new Promise((resolve, reject) => {
+  //     if (controlTypes.includes(controlType)) {
+  //       socket.emit("trigger", controlType, state.code, (res) => {
+  //         if (res === "Accept") {
+  //           resolve();
+  //         } else {
+  //           console.log(res);
+  //           reject("Invalid");
+  //         }
+  //       });
+  //     } else {
+  //       reject("Invalid function");
+  //     }
+  //   });
+  // };
+
+  const handleControl = (controlType, blinkLight) => {
     console.log("HANDLECTRL: ", controlType);
-    socket.emit(controlType);
-    return new Promise((resolve, reject) => {
-      if (controlTypes.includes(controlType)) {
-        socket.emit("trigger", controlType, state.code, (res) => {
-          if (res === "Accept") {
-            resolve();
-          } else {
-            console.log(res);
-            reject("Invalid");
-          }
-        });
-      } else {
-        reject("Invalid function");
-      }
-    });
+    if (controlTypes.includes(controlType)) {
+      socket.emit("trigger", controlType, state.code, socket.id);
+      console.log("EMITTED");
+      // myRef.current.successMethod();
+    } else {
+      blinkLight("error");
+    }
   };
 
   useEffect(() => {
     console.log("CALLED");
     socket.connect();
     socket.on("connect", () => {
-      console.log("CONNECTED");
+      console.log("CONNECTED with ID: ", socket.id);
       socket.emit("mobile-connect", state.code, (displayName) => {
         console.log("EVENT EMITTED: ", state.code, displayName);
         if (displayName !== "NOT FOUND") {
@@ -54,16 +73,27 @@ export default function Home({ socket }) {
         }
       });
     });
+    socket.on("valid", (msg) => {
+      console.log("RECEIVED Valid");
+      myRef.current.successMethod();
+    });
+    socket.on("invalid", (msg) => {
+      console.log("RECEIVED Invalid");
+      myRef.current.errorMethod();
+    });
     socket.on("disconnect", () => {
+      console.log("DISCONNECT event");
       setMessage("");
       setState((currentState) => ({ ...currentState, code: "" }));
       navigate("/");
     });
     return () => {
+      console.log("RETURN EVENT LISTENER");
       socket.removeAllListeners("connect");
+      socket.removeAllListeners("invalid");
       socket.disconnect();
     };
-  }, [state.code]);
+  }, []);
 
   const disconnectSocket = () => {
     socket.disconnect();
@@ -79,7 +109,7 @@ export default function Home({ socket }) {
         >
           <Nav disconnectSocket={disconnectSocket} />
           <Time />
-          <Coontrols handleControl={handleControl} />
+          <Coontrols handleControl={handleControl} ref={myRef} />
           <p
             style={{ marginTop: "-70px" }}
             className="text-center text-[var(--text)]"
