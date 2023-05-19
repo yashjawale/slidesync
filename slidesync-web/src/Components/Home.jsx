@@ -75,7 +75,8 @@ export default function Home({ socket }) {
     });
     socket.on("valid", (msg) => {
       console.log("RECEIVED Valid");
-      myRef.current.successMethod();
+      console.log(myRef.current.successMethod());
+      // myRef.current.successMethod();
     });
     socket.on("invalid", (msg) => {
       console.log("RECEIVED Invalid");

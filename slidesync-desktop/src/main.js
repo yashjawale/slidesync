@@ -6,6 +6,8 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
+app.allowRendererProcessReuse = false;
+
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -15,6 +17,8 @@ const createWindow = () => {
     minWidth: 500,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      sandbox: false,
+      webSecurity: false,
     },
   });
 

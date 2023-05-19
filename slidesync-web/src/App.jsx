@@ -17,11 +17,19 @@ const getDark = () => {
 };
 
 // Configuring socket
-const URL = "http://localhost";
-const PORT = "4000";
-const socket = io(`${URL}:${PORT}`, {
+// const URL = "http://localhost";
+const URL = "https://soft-gamy-apatosaurus.glitch.me";
+// const URL = "http://192.168.53.99";
+// const PORT = "4000";
+const socket = io(`${URL}`, {
   autoConnect: false,
 });
+// const socket = io(
+//   `https://e576-2409-4042-4ccb-4c7f-f0a6-f8f7-ebaf-249f.ngrok-free.app`,
+//   {
+//     autoConnect: false,
+//   }
+// );
 
 // States for app preferences & socket ID
 function App() {

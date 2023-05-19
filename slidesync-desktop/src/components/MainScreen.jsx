@@ -5,10 +5,11 @@ import { io } from "socket.io-client";
 import Message from "./Message.jsx";
 import QRDisplay from "./QRDisplay.jsx";
 
-const URL = "http://localhost";
-const PORT = "4000";
+// const URL = "http://localhost";
+const URL = "https://soft-gamy-apatosaurus.glitch.me";
+// const PORT = "4000";
 
-const socket = io(`${URL}:${PORT}`, { autoConnect: false });
+const socket = io(`${URL}`, { autoConnect: false });
 
 const controlTypes = ["next", "previous"];
 
@@ -63,6 +64,16 @@ const MainScreen = () => {
           // Valid device
           console.log("FOUND");
           socket.emit("valid-fn", origin);
+          // Triggering keyboard events
+          switch (controlType) {
+            case "next":
+              window.app.next();
+              break;
+            case "previous":
+              window.app.previous();
+              break;
+          }
+          // window.app.next();
         } else {
           socket.emit("invalid-fn", origin);
         }
