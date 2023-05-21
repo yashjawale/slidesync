@@ -144,3 +144,31 @@ img[alt="Info icon"] {
 .status-light.error {
   background-color: var(--status-error);
 }
+
+/* Loader */
+
+.loaders-1 {
+  animation: ani-1 2s infinite linear alternate;
+  transform-origin: left;
+}
+.loaders-2 {
+  animation: ani-2 2s infinite linear alternate;
+  transform-origin: right;
+}
+
+@keyframes ani-1 {
+  50% {
+    transform: translateX(40px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes ani-2 {
+  50% {
+    transform: translateX(-40px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
