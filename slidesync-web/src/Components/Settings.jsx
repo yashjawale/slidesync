@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { AppContext } from './Home'
 import { Context } from '../App'
 import List from './List';
-// import notify from '../assets/tap.wav'
+// import notify from '../assets/notify.mp3'
 
 export default function Settings() {
 
@@ -35,8 +35,8 @@ export default function Settings() {
                         west
                     </span>
 
-                    <p className="text-3xl font-bold mt-3">Settings</p>
-                    <ul className='flex flex-col justify-evenly pt-8 max-w-[350px]'>
+                    <p className="text-3xl font-bold mt-6">Settings</p>
+                    <ul className='flex flex-col justify-evenly pt-8 gap-2 max-w-[350px]'>
                         <List settingName="Dark Mode" handleClick={handleMode} status={state.dark}/>
                         <List settingName="Haptic Feedback" handleClick={handleVibrate} status={state.vibrate}/>
                         <List settingName="Sound" handleClick={handleSound} status={state.sound}/>
@@ -44,7 +44,7 @@ export default function Settings() {
                         <li className='text-lg py-4'>Report an Issue</li>
                     </ul>
                 </div>
-                <p className='text-lg text-center pt-2 absolute bottom-0 self-center'>SlideSync v1.0.1</p>
+                <p className='text-lg text-center py-2 absolute bottom-0 self-center'>SlideSync v1.0.1</p>
             </div>
         </>
     )

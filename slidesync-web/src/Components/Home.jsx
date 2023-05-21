@@ -23,7 +23,7 @@ export default function Home() {
           <Time />
           <Coontrols />
           {showexit && <Confirmation />}
-          <div className={`settings absolute -top-[-2px] bg-[var(--background)] text-[var(--text)] h-[100%] ${showmenu ? 'translate-x-[0px]' : ' translate-x-[1200px]'} w-full`}>
+          <div className={`settings absolute top-0 bg-[var(--background)] text-[var(--text)] h-[100%] ${showmenu ? 'translate-x-[0px]' : ' translate-x-[1200px]'} w-full`}>
             <Settings />
           </div>
 
