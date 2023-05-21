@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Context } from '../App';
 import { AppContext } from './Home';
-import notify from '../assets/notify1sec.mp3'
+import notify from '../assets/tap3.wav'
 
 
 export default function Coontrols() {
