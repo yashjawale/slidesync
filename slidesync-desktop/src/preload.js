@@ -7,18 +7,18 @@ const { keyboard, Key } = require("@nut-tree/nut-js");
 
 const next = async () => {
   // await console.log("NEXT!!");
-  await keyboard.type(Key.LeftSuper, Key.Space);
-  await keyboard.type("calculator");
+  // await keyboard.type(Key.LeftSuper, Key.Space);
+  // await keyboard.type("calculator");
   // await console.log("DONE COMMANDING");
-  // await keyboard.type(Key.Right);
+  await keyboard.type(Key.Right);
 };
 
 const previous = async () => {
   // console.log("PREV!!");
-  await keyboard.type(Key.LeftSuper, Key.Space);
-  await keyboard.type("typed prev");
+  // await keyboard.type(Key.LeftSuper, Key.Space);
+  // await keyboard.type("typed prev");
   // console.log("DONE COMMANDING");
-  // await keyboard.type(Key.Left);
+  await keyboard.type(Key.Left);
 };
 
 // Exposing functions to app
