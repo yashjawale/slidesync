@@ -120,11 +120,8 @@ export default function Home({ socket }) {
             <span className="text-[var(--primary)]">{message}</span>
           </p>
           {showexit && <Confirmation disconnectSocket={disconnectSocket} />}
-          <div
-            className={`settings shadow-xl absolute top-0 bg-[var(--background)] text-[var(--text)] h-[100%] ${
-              showmenu ? "translate-x-[0px]" : " translate-x-[1200px]"
-            } w-full`}
-          >
+          <div className={`settings absolute -top-[-2px] bg-[var(--background)] text-[var(--text)] h-[100%] ${showmenu ? 'translate-x-[0px]' : ' translate-x-[1200px]'} w-full`}>
+
             <Settings />
           </div>
         </div>
