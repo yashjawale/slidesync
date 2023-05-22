@@ -17,6 +17,7 @@ export default function ScanScreen() {
       // Code invalid
       // Send to error page
       console.log("wrong code");
+      navigate("/error", { state: { message: "Wrong code entered" } });
     }
   };
   const navigate = useNavigate();

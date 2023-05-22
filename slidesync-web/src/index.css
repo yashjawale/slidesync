@@ -98,11 +98,18 @@ input[type="range"]::-moz-range-thumb {
   position: relative;
   box-shadow: 0 0 0px 1.5px var(--shadow);
 }
+button {
+  transition: all 0.1s ease;
+}
+button:hover {
+  filter: brightness(0.8);
+}
 
 /* Settings */
 
 .settings {
   transition: transform 0.8s ease-in-out;
+  transition: background-color 0.5s ease;
 }
 
 .confirmation {

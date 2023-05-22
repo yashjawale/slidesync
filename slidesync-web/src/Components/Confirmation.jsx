@@ -26,7 +26,7 @@ export default function Confirmation({ disconnectSocket }) {
             Cancel
           </button>
           <button
-            className="px-4 py-2 rounded-lg text-[var(--text)] bg-red-600"
+            className="px-4 py-2 rounded-lg text-[var(--background)] bg-red-600"
             onClick={() => {
               disconnectSocket();
               setState((currentState) => ({ ...currentState, code: "" }));

@@ -82,11 +82,19 @@ export default function Home({ socket }) {
       console.log("RECEIVED Invalid");
       myRef.current.errorMethod();
     });
+    socket.on("device-disconnect", (id) => {
+      console.log("Device disconnected");
+      if (id === state.code) {
+        navigate("/error", { state: { message: "Computer has disconnected" } });
+        setState((currentState) => ({ ...currentState, code: "" }));
+      }
+    });
     socket.on("disconnect", () => {
       console.log("DISCONNECT event");
       setMessage("");
       setState((currentState) => ({ ...currentState, code: "" }));
-      navigate("/");
+      navigate("/error", { state: { message: "Disconnected from server" } });
+      // navigate("/");
     });
     return () => {
       console.log("RETURN EVENT LISTENER");
@@ -116,12 +124,15 @@ export default function Home({ socket }) {
             className="text-center text-[var(--text)]"
           >
             {/* {message === "" ? "Connection error" : `Connected as ${message}`} */}
-            {message === "" ? "Connection error" : "Connected as "}
+            {message === "" ? "Connecting..." : "Connected as "}
             <span className="text-[var(--primary)]">{message}</span>
           </p>
           {showexit && <Confirmation disconnectSocket={disconnectSocket} />}
-          <div className={`settings absolute -top-[-2px] bg-[var(--background)] text-[var(--text)] h-[100%] ${showmenu ? 'translate-x-[0px]' : ' translate-x-[1200px]'} w-full`}>
-
+          <div
+            className={`settings absolute -top-[-2px] bg-[var(--background)] text-[var(--text)] h-[100%] ${
+              showmenu ? "translate-x-[0px]" : " translate-x-[1200px]"
+            } w-full`}
+          >
             <Settings />
           </div>
         </div>

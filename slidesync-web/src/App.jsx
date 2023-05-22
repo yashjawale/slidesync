@@ -9,6 +9,7 @@ import ScanScreen from "./Components/ScanScreen";
 import Welcome from "./Components/Welcome";
 import CodeEntry from "./Components/CodeEntry";
 import Error from "./Components/Error";
+import PageNotFound from "./Components/PageNotFound";
 
 export const Context = createContext();
 const nosleep = new NoSleep();
@@ -92,7 +93,7 @@ function App() {
   useEffect(() => {
     localStorage.setItem("state", JSON.stringify(state));
   }, [state]);
-  
+
   return (
     <>
       <BrowserRouter>
@@ -102,7 +103,8 @@ function App() {
             <Route path="/home" element={<Home socket={socket} />} />
             <Route path="/scan" element={<ScanScreen />} />
             <Route path="/codeentry" element={<CodeEntry />} />
-            <Route path="*" element={<Error />} />
+            <Route path="/error" element={<Error />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Context.Provider>
       </BrowserRouter>

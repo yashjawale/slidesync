@@ -99,9 +99,8 @@ io.on("connection", (socket) => {
   // Emitting device-disconnect event to each device in room
   socket.on("disconnecting", (reason) => {
     console.log("DISCONNECTING: ", socket.id);
-    socket.rooms.forEach((id) =>
-      socket.to(id).emit("device-disconnect", socket.id)
-    );
+    // socket.rooms.forEach((id) => socket.emit("device-disconnect", socket.id));
+    io.sockets.in(id).emit("device-disconnect", socket.id);
   });
 
   // Logging disconnected clients

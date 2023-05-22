@@ -1,18 +1,17 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../assets/slidesync.svg";
-import { Link, useNavigate } from 'react-router-dom'
-import Loader from './Loader';
+import { Link, useNavigate } from "react-router-dom";
+import Loader from "./Loader";
 
 export default function Welcome() {
+  const [loader, setLoader] = useState(true);
 
-  const [loader, setLoader] = useState(true)
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoader(false)
-        }, 2000);
-    }, [])
-    let navigate = useNavigate();
+  useEffect(() => {
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
+  }, []);
+  let navigate = useNavigate();
 
   return (
     <>
@@ -42,7 +41,7 @@ export default function Welcome() {
             </Link>
           </div>
 
-          <p className={`text-[var(--text)]`}>Version 1.0.1</p>
+          <p className={`text-[var(--text)]`}>Version 0.1-alpha</p>
         </div>
       </div>
     </>

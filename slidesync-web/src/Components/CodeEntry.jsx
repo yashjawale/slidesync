@@ -15,6 +15,7 @@ export default function CodeEntry() {
     } else {
       console.log("Wrong code");
       // Send to error page
+      navigate("/error", { state: { message: "Wrong code entered" } });
     }
   };
 
