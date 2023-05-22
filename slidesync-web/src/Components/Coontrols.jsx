@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { Context } from "../App";
 import { AppContext } from "./Home";
-import notify from "../assets/notify1sec.mp3";
+import notify from '../assets/tap.wav'
 
 const Coontrols = forwardRef((props, ref) => {
   const [range, setRange] = useState(0);

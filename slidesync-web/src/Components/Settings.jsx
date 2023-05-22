@@ -36,8 +36,8 @@ export default function Settings() {
             west
           </span>
 
-          <p className="text-3xl font-bold mt-6">Settings</p>
-          <ul className="flex flex-col justify-evenly pt-8 gap-2 max-w-[350px]">
+          <p className="text-3xl font-bold mt-3">Settings</p>
+          <ul className="flex flex-col justify-evenly pt-8 max-w-[350px]">
             <List
               settingName="Dark Mode"
               handleClick={handleMode}
@@ -61,7 +61,7 @@ export default function Settings() {
             <li className="text-lg py-4">Report an Issue</li>
           </ul>
         </div>
-        <p className="text-lg text-center py-2 absolute bottom-0 self-center">
+        <p className="text-lg text-center pt-2 absolute bottom-0 self-center">
           SlideSync v1.0.1
         </p>
       </div>
@@ -69,53 +69,3 @@ export default function Settings() {
   );
 }
 
-/*
-
-    {/* <List settingName="Dark Mode" /> 
-    <li>
-        <div className='flex items-center justify-between border-b-2 pb-2 border-gray-300'>
-            <p className="text-xl">Dark Mode</p>
-            <button><i className={`material-icons text-6xl ${state.dark ? 'text-[var(--primary)]' : 'text-gray-300'}`} onClick={() => {
-                setState(initials=>({...initials , dark : !state.dark}))
-                }}>
-                {state.dark ? 'toggle_on' : 'toggle_off'}
-            </i></button>
-        </div>
-    </li>
-
-    <li>
-    <div className='flex items-center justify-between border-b-2 pb-2 border-gray-300'>
-                                <p className="text-xl">Dark Mode</p>
-                                <button><i className={`material-icons text-6xl ${dark ? 'text-[#1899E9!important]' : 'text-gray-300'}`} onClick={() => { setDark(!dark) }}>
-                                {dark ? 'toggle_on' : 'toggle_off'}
-                                </i></button>
-                                </div>
-                                </li>
-                                <li>
-                                <div className='flex items-center justify-between border-b-2 pb-2 border-gray-300'>
-                                <p className="text-xl">Haptic Feedback</p>
-                                <button><i className={`material-icons text-6xl ${vibrate ? 'text-[#1899E9!important]' : 'text-gray-300'}`} onClick={() => { setVibrate(!vibrate) }}>
-                                {vibrate ? 'toggle_on' : 'toggle_off'}
-                                </i></button>
-                            </div>
-                        </li>
-                        <li>
-                            <div className='flex items-center justify-between border-b-2 pb-2 border-gray-300'>
-                                <p className="text-xl">Sound</p>
-                                <button><i className={`material-icons text-6xl ${sound ? 'text-[#1899E9!important]' : 'text-gray-300'}`} onClick={() => { setSound(!sound) }}>
-                                {sound ? 'toggle_on' : 'toggle_off'}
-                                </i></button>
-                            </div>
-                        </li>
-                        <li>
-                            <div className='flex items-center justify-between border-b-2 pb-2 border-gray-300'>
-                                <p className="text-xl">Prevent the screen from sleeping</p>
-                                <button><i className={`material-icons text-6xl ${sleep ? 'text-[#1899E9!important]' : 'text-gray-300'}`} onClick={() => { setSleep(!sleep) }}>
-                                {sleep ? 'toggle_on' : 'toggle_off'}
-                                </i></button>
-                            </div>
-                        </li>
-
-
-
-*/

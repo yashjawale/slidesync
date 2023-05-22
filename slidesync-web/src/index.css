@@ -108,6 +108,7 @@ input[type="range"]::-moz-range-thumb {
 .confirmation {
   transition: all 0.6s ease;
 }
+
 #html5qr-code-full-region {
   padding: 10px;
 }

@@ -13,7 +13,32 @@ import Error from "./Components/Error";
 export const Context = createContext();
 const nosleep = new NoSleep();
 const getDark = () => {
-  return JSON.parse(localStorage.getItem("dark")) || false;
+  let newObj = localStorage.getItem("state");
+  let json = JSON.parse(newObj);
+  if (json) {
+    return json.dark || false;
+  }
+};
+const getSleep = () => {
+  let newObj = localStorage.getItem("state");
+  let json = JSON.parse(newObj);
+  if (json) {
+    return json.sleep || false;
+  }
+};
+const getVibrate = () => {
+  let newObj = localStorage.getItem("state");
+  let json = JSON.parse(newObj);
+  if (json) {
+    return json.vibrate || false;
+  }
+};
+const getSound = () => {
+  let newObj = localStorage.getItem("state");
+  let json = JSON.parse(newObj);
+  if (json) {
+    return json.sound || false;
+  }
 };
 
 // Configuring socket
@@ -34,15 +59,21 @@ const socket = io(`${URL}`, {
 // States for app preferences & socket ID
 function App() {
   const [state, setState] = useState({
-    dark: true,
-    vibrate: false,
-    sound: false,
-    sleep: false,
+    dark: getDark(),
+    vibrate: getVibrate(),
+    sound: getSound(),
+    sleep: getSleep(),
     code: "",
   });
 
   useEffect(() => {
-    document.body.classList.toggle("dark");
+    if (state.dark) {
+      if (!document.body.classList.contains("dark")) {
+        document.body.classList.add("dark");
+      }
+    } else {
+      document.body.classList.remove("dark");
+    }
   }, [state.dark]);
 
   useEffect(() => {
@@ -57,6 +88,11 @@ function App() {
         )
       : nosleep.disable();
   }, [state.sleep]);
+
+  useEffect(() => {
+    localStorage.setItem("state", JSON.stringify(state));
+  }, [state]);
+  
   return (
     <>
       <BrowserRouter>

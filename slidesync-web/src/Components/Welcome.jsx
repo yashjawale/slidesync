@@ -1,10 +1,19 @@
-import React, { useContext } from "react";
+import React, { useState , useEffect } from "react";
 import logo from "../assets/slidesync.svg";
-import { Link } from "react-router-dom";
-import { Context } from "../App";
+import { Link, useNavigate } from 'react-router-dom'
+import Loader from './Loader';
 
 export default function Welcome() {
-  const { dark } = useContext(Context);
+
+  const [loader, setLoader] = useState(true)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoader(false)
+        }, 2000);
+    }, [])
+    let navigate = useNavigate();
+
   return (
     <>
       <div className="flex flex-col items-center justify-end gap-24 h-full">
