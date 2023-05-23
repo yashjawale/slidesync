@@ -15,6 +15,7 @@ const createWindow = () => {
     height: 600,
     minHeight: 500,
     minWidth: 500,
+    icon: path.join(__dirname, "icons/1024x1024.png"),
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
       sandbox: false,
@@ -26,7 +27,7 @@ const createWindow = () => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
