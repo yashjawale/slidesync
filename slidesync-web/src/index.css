@@ -139,6 +139,14 @@ img[alt="Info icon"] {
   border-radius: 8px;
 }
 
+/* First & Last slide buttons */
+.aux-button-img {
+  width: 14px;
+}
+.aux-button-img:hover {
+  filter: brightness(0.8);
+}
+
 .status-light {
   background-color: var(--status-standby);
   /* background-color: #606368; */

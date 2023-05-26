@@ -24,7 +24,7 @@ export default function Home({ socket }) {
 
   const myRef = useRef();
 
-  const controlTypes = ["next", "previous"];
+  const controlTypes = ["next", "previous", "first-slide", "last-slide"];
 
   // const handleControl = (controlType) => {
   //   console.log("HANDLECTRL: ", controlType);

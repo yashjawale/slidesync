@@ -27,7 +27,7 @@ const io = require("socket.io")(4000, {
   },
 });
 
-const controlTypes = ["next", "previous"];
+const controlTypes = ["next", "previous", "first-slide", "last-slide"];
 
 io.on("connection", (socket) => {
   // Logging new connections

@@ -11,7 +11,7 @@ const URL = "https://soft-gamy-apatosaurus.glitch.me";
 
 const socket = io(`${URL}`, { autoConnect: false });
 
-const controlTypes = ["next", "previous"];
+const controlTypes = ["next", "previous", "first-slide", "last-slide"];
 
 const MainScreen = () => {
   const [code, setCode] = useState(""); // Stores socket ID from server
@@ -71,6 +71,12 @@ const MainScreen = () => {
               break;
             case "previous":
               window.app.previous();
+              break;
+            case "first-slide":
+              window.app.firstSlide();
+              break;
+            case "last-slide":
+              window.app.lastSlide();
               break;
           }
           // window.app.next();

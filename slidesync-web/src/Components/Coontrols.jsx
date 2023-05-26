@@ -7,7 +7,10 @@ import React, {
 } from "react";
 import { Context } from "../App";
 import { AppContext } from "./Home";
-import notify from '../assets/tap.wav'
+import notify from "../assets/tap.wav";
+
+import firstSlide from "../assets/arrow-end-left-icon.svg";
+import lastSlide from "../assets/arrow-end-right-icon.svg";
 
 const Coontrols = forwardRef((props, ref) => {
   const [range, setRange] = useState(0);
@@ -126,19 +129,26 @@ const Coontrols = forwardRef((props, ref) => {
         <div className="cntr-1 flex items-center justify-center gap-24">
           <button
             onClick={() => {
-              blinkLight("error");
+              // blinkLight("error");
+              trigger("first-slide");
             }}
-            className="text-lg border border-[var(--text)] h-12 w-12 rounded-[50%] flex items-center justify-center text-[var(--text)]"
+            className="text-lg border border-[var(--text)] h-12 w-12 rounded-[50%] flex items-center justify-center"
           >
-            Esc
+            <img
+              src={firstSlide}
+              alt="First Slide"
+              className="aux-button-img"
+            />
           </button>
           <button
             onClick={() => {
-              blinkLight("error");
+              // blinkLight("error");
+              trigger("last-slide");
             }}
             className="text-xl border border-[var(--text)] h-12 w-12 rounded-[50%] flex items-center justify-center"
           >
-            <i className="bx bx-fullscreen text-[var(--text)]"></i>
+            {/* <i className="bx bx-fullscreen text-[var(--text)]"></i> */}
+            <img src={lastSlide} alt="Last Slide" className="aux-button-img" />
           </button>
         </div>
         <div
