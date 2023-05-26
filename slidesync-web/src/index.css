@@ -147,6 +147,10 @@ img[alt="Info icon"] {
   filter: brightness(0.8);
 }
 
+body.dark .aux-button-img {
+  filter: invert(1);
+}
+
 .status-light {
   background-color: var(--status-standby);
   /* background-color: #606368; */
