@@ -41,7 +41,7 @@ export default function Welcome() {
             </Link>
           </div>
 
-          <p className={`text-[var(--text)]`}>Version 0.1.1-alpha</p>
+          <p className={`text-[var(--text)]`}>Version 0.1.2-alpha</p>
         </div>
       </div>
     </>

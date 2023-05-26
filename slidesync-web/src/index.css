@@ -108,8 +108,7 @@ button:hover {
 /* Settings */
 
 .settings {
-  transition: transform 0.8s ease-in-out;
-  transition: background-color 0.5s ease;
+  transition: transform 0.8s ease-in-out, background-color 0.5s ease;
 }
 
 .confirmation {

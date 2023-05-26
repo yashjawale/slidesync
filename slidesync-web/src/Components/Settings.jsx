@@ -62,7 +62,7 @@ export default function Settings() {
           </ul>
         </div>
         <p className="text-lg text-center pt-2 absolute bottom-0 self-center">
-          SlideSync v0.1.1-alpha
+          SlideSync v0.1.2-alpha
         </p>
       </div>
     </>
