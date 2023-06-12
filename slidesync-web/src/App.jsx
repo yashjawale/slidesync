@@ -1,62 +1,112 @@
 import React, { createContext, useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { io } from "socket.io-client";
 import "./App.css";
-import NoSleep from 'nosleep.js';
+
+import NoSleep from "nosleep.js";
 import Home from "./Components/Home";
+import ScanScreen from "./Components/ScanScreen";
 import Welcome from "./Components/Welcome";
 import CodeEntry from "./Components/CodeEntry";
 import Error from "./Components/Error";
+import PageNotFound from "./Components/PageNotFound";
 
 export const Context = createContext();
 const nosleep = new NoSleep();
 const getDark = () => {
-  return JSON.parse(localStorage.getItem("dark")) || false;
-}
+  let newObj = localStorage.getItem("state");
+  let json = JSON.parse(newObj);
+  if (json) {
+    return json.dark || false;
+  }
+};
+const getSleep = () => {
+  let newObj = localStorage.getItem("state");
+  let json = JSON.parse(newObj);
+  if (json) {
+    return json.sleep || false;
+  }
+};
+const getVibrate = () => {
+  let newObj = localStorage.getItem("state");
+  let json = JSON.parse(newObj);
+  if (json) {
+    return json.vibrate || false;
+  }
+};
+const getSound = () => {
+  let newObj = localStorage.getItem("state");
+  let json = JSON.parse(newObj);
+  if (json) {
+    return json.sound || false;
+  }
+};
 
-// localStorage.removeItem('dark')
+// Configuring socket
+// const URL = "http://localhost";
+const URL = "https://soft-gamy-apatosaurus.glitch.me";
+// const URL = "http://192.168.53.99";
+// const PORT = "4000";
+const socket = io(`${URL}`, {
+  autoConnect: false,
+});
+// const socket = io(
+//   `https://e576-2409-4042-4ccb-4c7f-f0a6-f8f7-ebaf-249f.ngrok-free.app`,
+//   {
+//     autoConnect: false,
+//   }
+// );
+
+// States for app preferences & socket ID
 function App() {
-
-  // const [dark, setDark] = useState(getDark())
-  // const [vibrate, setVibrate] = useState(false)
-  // const [sound, setSound] = useState(true)
-  // const [sleep, setSleep] = useState(true)
-
   const [state, setState] = useState({
-    // dark: getDark() ,
-    dark: true,
-    vibrate: false,
-    sound: false,
-    sleep: false,
-  })
+    dark: getDark(),
+    vibrate: getVibrate(),
+    sound: getSound(),
+    sleep: getSleep(),
+    code: "",
+  });
 
   useEffect(() => {
-    // localStorage.setItem("dark", state.dark)
-    document.body.classList.toggle('dark')
-  }, [state.dark])
+    if (state.dark) {
+      if (!document.body.classList.contains("dark")) {
+        document.body.classList.add("dark");
+      }
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [state.dark]);
 
   useEffect(() => {
-    // state.sleep && nosleep.enable();
-    state.sleep ?
-    document.addEventListener('click', function enableNoSleep() {
-      document.removeEventListener('click', enableNoSleep, false);
-      nosleep.enable();
-    }, false) : nosleep.disable();
+    state.sleep
+      ? document.addEventListener(
+          "click",
+          function enableNoSleep() {
+            document.removeEventListener("click", enableNoSleep, false);
+            nosleep.enable();
+          },
+          false
+        )
+      : nosleep.disable();
+  }, [state.sleep]);
 
-  }, [state.sleep])
+  useEffect(() => {
+    localStorage.setItem("state", JSON.stringify(state));
+  }, [state]);
+
   return (
     <>
       <BrowserRouter>
-
         <Context.Provider value={{ state, setState }}>
-
           <Routes>
             <Route path="/" element={<Welcome />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/home" element={<Home socket={socket} />} />
+            <Route path="/scan" element={<ScanScreen />} />
             <Route path="/codeentry" element={<CodeEntry />} />
-            <Route path="*" element={<Error />} />
+            <Route path="/error" element={<Error />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Context.Provider>
-
       </BrowserRouter>
     </>
   );
