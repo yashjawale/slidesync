@@ -1,4 +1,4 @@
-> ⚠️ This repository will be moved to its own [GitHub Organisation](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations) on _Sunday, March 24 2024_
+> ⚠️ This project is now being developed at [https://github.com/slidesync](https://github.com/slidesync)
 ---
 # SlideSync
 A cross platform application for controlling presentations from mobile device.
