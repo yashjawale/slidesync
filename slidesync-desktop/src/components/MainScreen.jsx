@@ -7,7 +7,8 @@ import QRDisplay from "./QRDisplay.jsx";
 
 // const URL = "http://localhost";
 // const URL = "https://soft-gamy-apatosaurus.glitch.me";
-const URL = "http://35.227.15.25";
+// const URL = "http://35.227.15.25";
+const URL = "https://slidesyncconnect.acunetix11.tech";
 // const PORT = "4000";
 
 const socket = io(`${URL}`, { autoConnect: false });
