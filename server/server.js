@@ -87,7 +87,12 @@ io.on("connection", (socket) => {
   socket.on("disconnecting", (reason) => {
     console.log("DISCONNECTING: ", socket.id);
     // socket.rooms.forEach((id) => socket.emit("device-disconnect", socket.id));
-    io.sockets.in(id).emit("device-disconnect", socket.id);
+    //io.sockets.in(id).emit("device-disconnect", socket.id);
+    for (const room of socket.rooms) {
+      if (room !== socket.id) {
+        socket.to(room).emit("device-disconnect", socket.id);
+      }
+    }
   });
 
   // Logging disconnected clients
